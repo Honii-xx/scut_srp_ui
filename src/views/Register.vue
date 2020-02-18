@@ -10,6 +10,8 @@
       />
     </div>
 
+    <div class="alert alert-danger error-tips" v-if="show_tips" role="alert">用户已注册，请检查</div>
+
     <div class="row">
       <div class="col-md-4 order-md-2 mb-4">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -45,14 +47,26 @@
           <div class="mb-3">
             <label for="username">用户名</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="username" v-model="user.username" required />
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                v-model="user.username"
+                required
+              />
               <div class="invalid-feedback" style="width: 100%;">请输入用户名</div>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="password">密码</label>
-            <input type="password" class="form-control" id="password" v-model="user.password" required />
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              v-model="user.password"
+              required
+            />
             <div class="invalid-feedback">请输入密码</div>
           </div>
           <div class="mb-3">
@@ -64,7 +78,12 @@
           <div class="row">
             <div class="col-md-3 mb-3">
               <label for="gender">性别</label>
-              <select class="custom-select d-block w-100" id="gender" v-model="user.gender" required>
+              <select
+                class="custom-select d-block w-100"
+                id="gender"
+                v-model="user.gender"
+                required
+              >
                 <option value="0">男</option>
                 <option value="1">女</option>
               </select>
@@ -72,21 +91,36 @@
             </div>
             <div class="col-md-3 mb-3">
               <label for="year">出生日期</label>
-              <select class="custom-select d-block w-100" id="year" v-model="user.birth_year" required>
+              <select
+                class="custom-select d-block w-100"
+                id="year"
+                v-model="user.birth_year"
+                required
+              >
                 <option v-for="item in years" :key="item" :value="item">{{ item }}</option>
               </select>
               <div class="invalid-feedback">请选择出生日期</div>
             </div>
             <div class="col-md-3 mb-3">
               <label for="month" class="empty-label"></label>
-              <select class="custom-select d-block w-100" id="month" v-model="user.birth_month" required>
+              <select
+                class="custom-select d-block w-100"
+                id="month"
+                v-model="user.birth_month"
+                required
+              >
                 <option v-for="item in months" :key="item" :value="item">{{ item }}</option>
               </select>
               <div class="invalid-feedback">请选择出生日期</div>
             </div>
             <div class="col-md-3 mb-3">
               <label for="day" class="empty-label"></label>
-              <select class="custom-select d-block w-100" id="day" v-model="user.birth_day" required>
+              <select
+                class="custom-select d-block w-100"
+                id="day"
+                v-model="user.birth_day"
+                required
+              >
                 <option v-for="item in days" :key="item" :value="item">{{ item }}</option>
               </select>
               <div class="invalid-feedback">请选择出生日期</div>
@@ -112,7 +146,13 @@
           <div class="mb-3">
             <label for="student_id">学号</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="student_id" v-model="user.student_id" required />
+              <input
+                type="text"
+                class="form-control"
+                id="student_id"
+                v-model="user.student_id"
+                required
+              />
               <div class="invalid-feedback" style="width: 100%;">请输入学号</div>
             </div>
           </div>
@@ -132,7 +172,12 @@
             </div>
             <div class="col-md-6 mb-3">
               <label for="end_year">毕业年份</label>
-              <select class="custom-select d-block w-100" id="end_year" v-model="user.end_year" required>
+              <select
+                class="custom-select d-block w-100"
+                id="end_year"
+                v-model="user.end_year"
+                required
+              >
                 <option v-for="item in years" :key="item" :value="item">{{ item }}</option>
               </select>
               <div class="invalid-feedback">请选择毕业年份</div>
@@ -176,7 +221,7 @@
             <div class="col-md-6 mb-3">
               <label for="phone">手机号码</label>
               <div class="input-group">
-                <input type="text" class="form-control" id="phone" v-model="user.phone"/>
+                <input type="text" class="form-control" id="phone" v-model="user.phone" />
                 <div class="invalid-feedback" style="width: 100%;">请输入手机号码</div>
               </div>
             </div>
@@ -185,35 +230,45 @@
                 电子邮箱
                 <span class="text-muted"></span>
               </label>
-              <input type="email" class="form-control" id="email" v-model="user.email"/>
+              <input type="email" class="form-control" id="email" v-model="user.email" />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="compony">工作单位</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="compony" v-model="user.compony"/>
+              <input type="text" class="form-control" id="compony" v-model="user.compony" />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="compony_address">工作所在地</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="compony_address" v-model="user.compony_address"/>
+              <input
+                type="text"
+                class="form-control"
+                id="compony_address"
+                v-model="user.compony_address"
+              />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="alumni_association">所属校友会</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="alumni_association" v-model="user.alumni_association"/>
+              <input
+                type="text"
+                class="form-control"
+                id="alumni_association"
+                v-model="user.alumni_association"
+              />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="other">其他情况</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="other" v-model="user.other"/>
+              <input type="text" class="form-control" id="other" v-model="user.other" />
             </div>
           </div>
           <hr class="mb-4" />
@@ -231,8 +286,8 @@
 <script>
 import "../../node_modules/jquery/dist/jquery.slim.min.js";
 import "../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
-import "../../node_modules/bootstrap/dist/css/bootstrap.css";
-import http from '../common/http'
+import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import http from "../common/http";
 
 export default {
   name: "register",
@@ -240,27 +295,28 @@ export default {
     return {
       years: [],
       months: [],
+      show_tips: false,
       user: {
-        username: '',
-        password: '',
-        name: '',
+        username: "",
+        password: "",
+        name: "",
         gender: -1,
         birth_year: 0,
         birth_month: 0,
         birth_day: 0,
-        personal_id: '',
-        student_id: '',
+        personal_id: "",
+        student_id: "",
         start_year: 0,
         end_year: 0,
-        department: '',
-        major: '',
-        class: '',
-        phone: '',
-        email: '',
-        compony: '',
-        compony_address: '',
-        alumni_association: '',
-        other: ''
+        department: "",
+        major: "",
+        class: "",
+        phone: "",
+        email: "",
+        compony: "",
+        compony_address: "",
+        alumni_association: "",
+        other: ""
       }
     };
   },
@@ -277,36 +333,72 @@ export default {
     },
     submit: function() {
       var forms = document.getElementsByClassName("needs-validation");
-      var vue = this
+      var vue = this;
       Array.prototype.filter.call(forms, function(form) {
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
           form.classList.add("was-validated");
         } else {
-          http.post('/users/register', vue.user)
-          .then(function(res) {
-            console.log(res)
-          })
-          .catch(function(err) {
-            console.log(err)
-          })
+          http
+            .post("/users/register", vue.user)
+            .then(function(res) {
+              if (res.data.status == 0) {
+                vue.$router.push("/registerres");
+              } else {
+                vue.show_tips = true;
+                vue.backTop();
+              }
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
         }
       });
+    },
+    backTop: function() {
+      const that = this;
+      let timer = setInterval(() => {
+        let ispeed = Math.floor(-that.scrollTop / 5);
+        document.documentElement.scrollTop = document.body.scrollTop =
+          that.scrollTop + ispeed;
+        if (that.scrollTop === 0) {
+          clearInterval(timer);
+        }
+      }, 16);
+    },
+
+    scrollToTop: function() {
+      const that = this;
+      let scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      that.scrollTop = scrollTop;
     }
   },
   mounted: function() {
     this.init_years();
     this.init_months();
+    window.addEventListener("scroll", this.scrollToTop);
+  },
+  destroyed: function() {
+    window.removeEventListener('scroll', this.scrollToTop);
   },
   computed: {
     days: function() {
       var tmp_days = [];
-      var total_days = new Date(this.user.birth_year, this.user.birth_month, 0).getDate();
+      var total_days = new Date(
+        this.user.birth_year,
+        this.user.birth_month,
+        0
+      ).getDate();
       for (var i = 1; i <= total_days; i++) {
         tmp_days.push(i);
       }
-      return this.user.birth_year == 0 || this.user.birth_month == 0 ? [] : tmp_days;
+      return this.user.birth_year == 0 || this.user.birth_month == 0
+        ? []
+        : tmp_days;
     }
   }
 };
@@ -338,5 +430,9 @@ export default {
 
 .empty-label {
   height: 1.1em;
+}
+
+.error-tips {
+  text-align: center;
 }
 </style>

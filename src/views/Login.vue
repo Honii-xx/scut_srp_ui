@@ -2,7 +2,13 @@
   <div class="text-center">
     <form class="needs-validation form-signin">
       <img class="mb-4" src="../assets/img/login_logo.jpg" alt width="125" height="125" />
-      <h1 class="h3 mb-3 font-weight-normal">欢迎回来，华工远航者</h1>
+      <h1 class="h3 mb-3 font-weight-normal">SCUTer, 欢迎回来</h1>
+      <div v-if="show_alert" class="alert alert-danger" role="alert">
+        用户名或密码错误，请检查
+      </div>
+      <div v-if="show_unknown_error" class="alert alert-danger" role="alert">
+        未知错误
+      </div>
       <label for="username" class="sr-only">账号</label>
       <input
         id="username"
@@ -36,15 +42,18 @@
 </template>
 
 <script>
-import "../../node_modules/bootstrap/dist/css/bootstrap.css";
+import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import http from '../common/http'
+import store from '../common/store'
 export default {
   name: "login",
   data: function() {
     return {
       username: "",
       password: "",
-      remember_me: false
+      remember_me: false,
+      show_alert: false,
+      show_unknown_error: false
     };
   },
   methods: {
@@ -71,20 +80,41 @@ export default {
             .post("/common/login", {
               username: vue.username,
               password: vue.password
+            },{
+              timeout: 5*1000
             })
             .then(function(res) {
               if (res.data.status == 0) {
-                window.sessionStorage.setItem("student_id", vue.username);
-                window.sessionStorage.setItem("token", res.data.data.token);
+                store.commit('setToken', res.data.data.token);
+                store.commit('setUsername', res.data.data.username)
+                switch(res.data.data.role) {
+                  case 'user':
+                    vue.$router.push('/user')
+                    break;
+                  case 'admin':
+                    vue.$router.push('/admin')
+                    break
+                  default:
+                    vue.showUnknownError()
+                }
               } else {
-                console.log("登陆失败");
+                vue.showAlert();
               }
             })
             .catch(function(err) {
-              console.log(err);
+              console.log(err)
+              vue.showUnknownError();
             });
         }
       });
+    },
+    showAlert: function() {
+      this.show_alert = true;
+      this.show_unknown_error = false;
+    },
+    showUnknownError: function() {
+      this.show_alert = false;
+      this.show_unknown_error = true;
     }
   },
   mounted: function() {
@@ -98,6 +128,7 @@ export default {
 </script>
 
 <style scoped>
+
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;

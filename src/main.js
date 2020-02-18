@@ -1,15 +1,17 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
 import VueCookies from 'vue-cookies'
+import './assets/css/main.css'
+import DashboardBase from './component/DashboardBase'
 
 Vue.use(VueCookies)
 
 Vue.config.productionTip = false
 
+Vue.component('dashboard-base', DashboardBase)
+
 new Vue({
   router,
-  store,
   render: h => h(App)
 }).$mount('#app')
