@@ -9,7 +9,7 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/admin/departmentmaintain">
               <span data-feather="book"></span>
               院系、专业、班级维护
             </a>
@@ -23,31 +23,31 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/admin/alumniinfoquery">
               <span data-feather="users"></span>
               校友信息查询
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/admin/staralumniset">
               <span data-feather="star"></span>
               星级校友定义
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/admin/alumniinfoedit">
               <span data-feather="edit"></span>
               修改校友资料
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/admin/alumniadd">
               <span data-feather="plus-circle"></span>
               手动添加校友
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/admin/alumnifromexcel">
               <span data-feather="file-text"></span>
               Excel批量导入
             </a>
@@ -61,19 +61,19 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/admin/newspublish">
               <span data-feather="bookmark"></span>
               新闻发布
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/admin/activitymanage">
               <span data-feather="activity"></span>
               活动管理
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/admin/emailsend">
               <span data-feather="message-square"></span>
               邮件群发
             </a>
@@ -87,7 +87,7 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="#/dashboard/test">
+            <a class="nav-link" href="#/admin/donatestatistic">
               <span data-feather="bar-chart"></span>
               捐赠统计
             </a>

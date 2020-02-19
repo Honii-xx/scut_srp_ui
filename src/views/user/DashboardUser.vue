@@ -9,19 +9,19 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/user/introduction">
               <span data-feather="home"></span>
               校友总会简介
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/user/campusnews">
               <span data-feather="book-open"></span>
               校园新闻
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/user/activityinfo">
               <span data-feather="activity"></span>
               活动资讯
             </a>
@@ -35,13 +35,13 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/user/alumninews">
               <span data-feather="book"></span>
               校友新闻
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/user/alumniquery">
               <span data-feather="users"></span>
               校友信息查询
             </a>
@@ -55,13 +55,13 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/user/itemsdonate">
               <span data-feather="box"></span>
               物品捐赠
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/user/moneydonate">
               <span data-feather="dollar-sign"></span>
               金钱捐赠
             </a>
@@ -75,13 +75,13 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="#/dashboard/test">
+            <a class="nav-link" href="#/user/infoedit">
               <span data-feather="edit"></span>
               修改资料
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#/user/myactivity">
               <span data-feather="star"></span>
               我的活动
             </a>

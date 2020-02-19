@@ -5,8 +5,27 @@ import Register from '../views/Register.vue'
 import RegisterRes from '../views/RegisterRes.vue'
 import http from '../common/http'
 import store from '../common/store'
-import DashboardUser from '../views/DashboardUser'
-import DashboardAdmin from '../views/DashboardAdmin'
+import DashboardUser from '../views/user/DashboardUser'
+import DashboardAdmin from '../views/admin/DashboardAdmin'
+import Introduction from '../views/user/Introduction'
+import CampusNews from '../views/user/CampusNews'
+import ActivityInfo from '../views/user/ActivityInfo'
+import AlumniNews from '../views/user/AlumniNews'
+import AlumniQuery from '../views/user/AlumniQuery'
+import ItemsDonate from '../views/user/ItemsDonate'
+import MoneyDonate from '../views/user/MoneyDonate'
+import InfoEdit from '../views/user/InfoEdit'
+import MyActivity from '../views/user/MyActivity'
+import DepartmentMaintain from '../views/admin/DepartmentMaintain'
+import AlumniInfoQuery from '../views/admin/AlumniInfoQuery'
+import StarAlumniSet from '../views/admin/StarAlumniSet'
+import AlumniInfoEdit from '../views/admin/AlumniInfoEdit'
+import AlumniAdd from '../views/admin/AlumniAdd'
+import AlumniFromExcel from '../views/admin/AlumniFromExcel'
+import NewsPublish from '../views/admin/NewsPublish'
+import ActivityManage from '../views/admin/ActivityManage'
+import EmailSend from '../views/admin/EmailSend'
+import DonateStatistic from '../views/admin/DonateStatistic'
 
 Vue.use(VueRouter)
 
@@ -33,12 +52,90 @@ const routes = [
   {
     path: '/user',
     name: 'user',
-    component: DashboardUser
+    component: DashboardUser,
+    children: [{
+      path: 'introduction',
+      name: 'introduction',
+      component: Introduction
+    },{
+      path: 'campusnews',
+      name: 'campusnews',
+      component: CampusNews
+    },{
+      path: 'activityinfo',
+      name: 'activityinfo',
+      component: ActivityInfo
+    },{
+      path: 'alumninews',
+      name: 'alumninews',
+      component: AlumniNews
+    },{
+      path: 'alumniquery',
+      name: 'alumniquery',
+      component: AlumniQuery
+    },{
+      path: 'itemsdonate',
+      name: 'itemsdonate',
+      component: ItemsDonate
+    },{
+      path: 'moneydonate',
+      name: 'moneydonate',
+      component: MoneyDonate
+    },{
+      path: 'infoedit',
+      name: 'infoedit',
+      component: InfoEdit
+    },{
+      path: 'myactivity',
+      name: 'myactivity',
+      component: MyActivity
+    }]
   },
   {
     path: '/admin',
     name: 'admin',
-    component: DashboardAdmin
+    component: DashboardAdmin,
+    children: [{
+      path: 'departmentmaintain',
+      name: 'departmentmaintain',
+      component: DepartmentMaintain
+    },{
+      path: 'alumniinfoquery',
+      name: 'alumniinfoquery',
+      component: AlumniInfoQuery
+    },{
+      path: 'staralumniset',
+      name: 'staralumniset',
+      component: StarAlumniSet
+    },{
+      path: 'alumniinfoedit',
+      name: 'alumniinfoedit',
+      component: AlumniInfoEdit
+    },{
+      path: 'alumniadd',
+      name: 'alumniadd',
+      component: AlumniAdd
+    },{
+      path: 'alumnifromexcel',
+      name: 'alumnifromexcel',
+      component: AlumniFromExcel
+    },{
+      path: 'newspublish',
+      name: 'newspublish',
+      component: NewsPublish
+    },{
+      path: 'activitymanage',
+      name: 'activitymanage',
+      component: ActivityManage
+    },{
+      path: 'emailsend',
+      name: 'emailsend',
+      component: EmailSend
+    },{
+      path: 'donatestatistic',
+      name: 'donatestatistic',
+      component: DonateStatistic
+    }]
   }
 ]
 
