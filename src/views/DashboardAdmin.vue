@@ -69,13 +69,13 @@
           <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="activity"></span>
-              活动发布
+              活动管理
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="message-square"></span>
-              短信群发
+              邮件群发
             </a>
           </li>
         </ul>
