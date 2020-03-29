@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">华南理工大学校友管理平台</a>
       <ul class="navbar-nav px-3">
@@ -18,7 +18,9 @@
       <div class="row">
         <slot></slot>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <router-view></router-view>
+          <div class="">
+            <router-view></router-view>
+          </div>
         </main>
       </div>
     </div>
@@ -26,50 +28,47 @@
 </template>
 
 <script>
-import "../../node_modules/jquery/dist/jquery.slim.min.js";
-import "../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
-import "../../node_modules/chart.js/dist/Chart.min.js";
-import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import http from "../common/http";
-import store from '../common/store';
-var feather = require("../../node_modules/feather-icons/dist/feather.min.js");
+import '../../node_modules/jquery/dist/jquery.slim.min.js'
+import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
+import '../../node_modules/chart.js/dist/Chart.min.js'
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import http from '../common/http'
+import store from '../common/store'
+var feather = require('../../node_modules/feather-icons/dist/feather.min.js')
 export default {
-  name: "dashboard",
+  name: 'dashboard',
   data: function() {
     return {
       username: ''
     }
   },
   mounted: function() {
-    feather.replace();
+    feather.replace()
   },
   methods: {
     logout() {
       var vue = this
       console.log(store.state.token)
       http
-        .post(
-          "/common/logout",
-          {
-            token: store.state.token
-          }
-        )
+        .post('/common/logout', {
+          token: store.state.token
+        })
         .then(function(res) {
           console.log(res.data)
           if (res.data.status == 0) {
-            store.commit("setToken", '');
-            vue.$router.push("/login");
+            store.commit('setToken', '')
+            vue.$router.push('/login')
           }
         })
         .catch(function(err) {
-          console.log(err);
-        });
+          console.log(err)
+        })
     }
   },
   created: function() {
     this.username = store.state.username
   }
-};
+}
 </script>
 
 <style scoped>
@@ -141,12 +140,12 @@ export default {
  * Content
  */
 
-[role="main"] {
+[role='main'] {
   padding-top: 133px; /* Space for fixed navbar */
 }
 
 @media (min-width: 768px) {
-  [role="main"] {
+  [role='main'] {
     padding-top: 48px; /* Space for fixed navbar */
   }
 }

@@ -5,6 +5,11 @@ import VueCookies from 'vue-cookies'
 import './assets/css/main.css'
 import DashboardBase from './component/DashboardBase'
 
+import { BootstrapVue } from 'bootstrap-vue'
+
+// Install BootstrapVue
+Vue.use(BootstrapVue)
+
 Vue.use(VueCookies)
 
 Vue.config.productionTip = false
