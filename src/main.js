@@ -5,6 +5,11 @@ import VueCookies from 'vue-cookies'
 import './assets/css/main.css'
 import DashboardBase from './component/DashboardBase'
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
+
 import { BootstrapVue } from 'bootstrap-vue'
 
 // Install BootstrapVue

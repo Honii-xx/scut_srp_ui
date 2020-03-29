@@ -11,7 +11,7 @@
           <li class="nav-item">
             <a class="nav-link" href="#/user/introduction">
               <span data-feather="home"></span>
-              校友总会简介
+              校友总会简介<span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
