@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2 id="subpage-title">我的活动</h2>
     <b-card-group deck>
       <b-card footer-bg-variant="success" style="max-width: 20rem;" title="太极拳体验和学习" img-src="https://g-to.oss-cn-hangzhou.aliyuncs.com/srp/u%3D4274129534%2C1683238899%26fm%3D26%26gp%3D0.jpg" img-alt="Image" img-top>
         <b-card-text>
@@ -27,4 +28,8 @@ export default {}
 </script>
 
 <style scoped>
+#subpage-title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
 </style>

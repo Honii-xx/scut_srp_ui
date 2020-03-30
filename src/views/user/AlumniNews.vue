@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2 id="subpage-title">校友风采</h2>
     <b-card-group columns>
       <b-card title="张磊：大医精诚仁者心" img-src="https://g-to.oss-cn-hangzhou.aliyuncs.com/srp/5c5c526b-4a27-438e-96c1-9492f4f115e5.jpg" img-alt="Image" img-top>
         <b-card-text>
@@ -41,4 +42,7 @@ export default {}
 </script>
 
 <style scoped>
+#subpage-title {
+  margin: 20px 20px;
+}
 </style>
