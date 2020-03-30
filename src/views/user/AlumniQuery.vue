@@ -58,7 +58,8 @@
               <b-form-input id="input-company" v-model="tab1.input"></b-form-input>
             </b-col>
           </b-row>
-          <b-row align-h="end">
+          <b-row align-h="between">
+            <b-col cols="2"><small class="text-muted">可填写以上一个或多个条件</small></b-col>
             <b-col cols="1">
               <b-button size="md" variant="success">精确查找</b-button>
             </b-col>
@@ -103,7 +104,8 @@
               <b-form-input id="input-company" v-model="tab1.input"></b-form-input>
             </b-col>
           </b-row>
-          <b-row align-h="end">
+          <b-row align-h="between">
+            <b-col cols="2"><small class="text-muted">可填写以上一个或多个条件</small></b-col>
             <b-col cols="1">
               <b-button size="md" variant="success">模糊查找</b-button>
             </b-col>
