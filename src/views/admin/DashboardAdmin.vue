@@ -25,19 +25,13 @@
           <li class="nav-item">
             <a class="nav-link" href="#/admin/alumniinfoquery">
               <span data-feather="users"></span>
-              校友信息查询
+              校友信息维护
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#/admin/staralumniset">
               <span data-feather="star"></span>
               星级校友定义
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#/admin/alumniinfoedit">
-              <span data-feather="edit"></span>
-              修改校友资料
             </a>
           </li>
           <li class="nav-item">

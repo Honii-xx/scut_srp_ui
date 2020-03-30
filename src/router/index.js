@@ -19,7 +19,6 @@ import MyActivity from '../views/user/MyActivity'
 import DepartmentMaintain from '../views/admin/DepartmentMaintain'
 import AlumniInfoQuery from '../views/admin/AlumniInfoQuery'
 import StarAlumniSet from '../views/admin/StarAlumniSet'
-import AlumniInfoEdit from '../views/admin/AlumniInfoEdit'
 import AlumniAdd from '../views/admin/AlumniAdd'
 import AlumniFromExcel from '../views/admin/AlumniFromExcel'
 import NewsPublish from '../views/admin/NewsPublish'
@@ -107,10 +106,6 @@ const routes = [
       path: 'staralumniset',
       name: 'staralumniset',
       component: StarAlumniSet
-    },{
-      path: 'alumniinfoedit',
-      name: 'alumniinfoedit',
-      component: AlumniInfoEdit
     },{
       path: 'alumniadd',
       name: 'alumniadd',

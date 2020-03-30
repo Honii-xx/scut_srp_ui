@@ -14,7 +14,7 @@
             <b-form-input v-model="tab1.input"></b-form-input>
 
             <b-input-group-append>
-              <b-button size="md" variant="success">查找</b-button>
+              <b-button size="md" variant="primary">查找</b-button>
             </b-input-group-append>
           </b-input-group>
           <b-table id="result-table" :items="tab1.items" :fields="fields" sort-icon-left outlined responsive="sm"></b-table>
@@ -61,7 +61,7 @@
           <b-row align-h="between">
             <b-col cols="2"><small class="text-muted">可填写以上一个或多个条件</small></b-col>
             <b-col cols="1">
-              <b-button size="md" variant="success">精确查找</b-button>
+              <b-button size="md" variant="primary">精确查找</b-button>
             </b-col>
           </b-row>
           <b-table class="result-table" :items="tab1.items" :fields="fields" sort-icon-left outlined responsive="sm"></b-table>
@@ -107,7 +107,7 @@
           <b-row align-h="between">
             <b-col cols="2"><small class="text-muted">可填写以上一个或多个条件</small></b-col>
             <b-col cols="1">
-              <b-button size="md" variant="success">模糊查找</b-button>
+              <b-button size="md" variant="primary">模糊查找</b-button>
             </b-col>
           </b-row>
           <b-table class="result-table" :items="tab1.items" :fields="fields" sort-icon-left outlined responsive="sm"></b-table>
