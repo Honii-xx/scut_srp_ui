@@ -235,20 +235,20 @@
           </div>
 
           <div class="mb-3">
-            <label for="compony">工作单位</label>
+            <label for="company">工作单位</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="compony" v-model="user.compony" />
+              <input type="text" class="form-control" id="company" v-model="user.company" />
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="compony_address">工作所在地</label>
+            <label for="company_address">工作所在地</label>
             <div class="input-group">
               <input
                 type="text"
                 class="form-control"
-                id="compony_address"
-                v-model="user.compony_address"
+                id="company_address"
+                v-model="user.company_address"
               />
             </div>
           </div>
@@ -313,8 +313,8 @@ export default {
         class: "",
         phone: "",
         email: "",
-        compony: "",
-        compony_address: "",
+        company: "",
+        company_address: "",
         alumni_association: "",
         other: ""
       }

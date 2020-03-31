@@ -4,7 +4,7 @@
       <h4>Excel或Json文件批量导入</h4>
     </b-row>
     <b-row align-h="center">
-      <p class="text-muted">支持 .xlsx .xls .json 格式文件，请务必保证文件后缀名正确，否则将无法识别</p>
+      <p class="text-muted">支持 .xlsx .xls .json 格式文件，请务必保证文件后缀名正确，否则将无法识别。导入已存在用户将自动忽略。</p>
     </b-row>
     <b-row id="input-row" align-h="center">
       <b-col cols="6">
@@ -15,10 +15,10 @@
     <div class="result-area" v-if="items.length > 0">
       <b-row class="des-row" align-h="between">
         <b-col cols="4" class="text-muted">
-          请检查你的导入数据，并点击右侧按钮确认
+          共{{ items.length }}条记录，请检查，并点击右侧按钮确认
         </b-col>
         <b-col cols="1">
-          <b-button variant="primary">确认导入</b-button>
+          <b-button variant="primary" @click="upload">确认导入</b-button>
         </b-col>
       </b-row>
 
@@ -27,7 +27,7 @@
     </div>
 
     <el-dialog title="提示" :visible.sync="toastVisible" width="30%">
-      <span>未知文件格式 </span>
+      <span>{{ toastContent }}</span>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="toastVisible = false">确 定</el-button>
       </span>
@@ -38,11 +38,13 @@
 
 <script>
 import XLSX from 'xlsx'
+import http from "../../common/http";
 
 export default {
   data() {
     return {
       toastVisible: false,
+      toastContent: '',
       file: null,
       fields: [
         { key: 'student_id', label: '学号', sortable: true },
@@ -59,16 +61,14 @@ export default {
   },
   methods: {
     onFileChange(e) {
-      console.log(e.target.files[0])
       var file = e.target.files[0]
       var ext = this.getFileExt(file)
-      console.log(ext)
       if (ext === '.json') {
         this.processJsonFile(file)
       } else if (ext === '.xlsx' || ext === '.xls') {
         this.processExcelFile(file)
       } else {
-        this.toastVisible = true
+        this.makeToast('未知文件格式')
       }
     },
     processJsonFile(file) {
@@ -89,7 +89,6 @@ export default {
         var firstSheetName = workbook.SheetNames[0]
         var worksheet = workbook.Sheets[firstSheetName]
         var results = XLSX.utils.sheet_to_json(worksheet)
-        console.log(results)
         this.items = []
         this.items = this.items.concat(results)
       }
@@ -101,6 +100,23 @@ export default {
         return 'unknown'
       }
       return file.name.substr(dotIndex)
+    },
+    makeToast(content) {
+      this.toastVisible = true
+      this.toastContent = content
+    },
+    upload() {
+      var that = this
+      http.post('/admin/add_user', this.items).then(res => {
+        if (res.data.status === 0) {
+          that.makeToast('导入成功')
+        } else {
+          that.makeToast('导入失败')
+        }
+      }).catch(err => {
+        that.makeToast('导入失败')
+      })
+      that.items = []
     }
   }
 }

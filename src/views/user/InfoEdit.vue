@@ -142,16 +142,16 @@
           </div>
 
           <div class="mb-3">
-            <label for="compony">工作单位</label>
+            <label for="company">工作单位</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="compony" v-model="user.compony" />
+              <input type="text" class="form-control" id="company" v-model="user.company" />
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="compony_address">工作所在地</label>
+            <label for="company_address">工作所在地</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="compony_address" v-model="user.compony_address" />
+              <input type="text" class="form-control" id="company_address" v-model="user.company_address" />
             </div>
           </div>
 
@@ -211,8 +211,8 @@ export default {
         class: '',
         phone: '',
         email: '',
-        compony: '',
-        compony_address: '',
+        company: '',
+        company_address: '',
         alumni_association: '',
         other: ''
       }
@@ -295,8 +295,8 @@ export default {
         that.user.class = res.data.data.class
         that.user.phone = res.data.data.phone
         that.user.email = res.data.data.email
-        that.user.compony = res.data.data.compony
-        that.user.compony_address = res.data.data.compony_address
+        that.user.company = res.data.data.company
+        that.user.company_address = res.data.data.company_address
         that.user.alumni_association = res.data.data.alumni_association
         that.user.other = res.data.data.other
       })

@@ -2,7 +2,7 @@
   <div>
     <h2 id="subpage-title">校友信息查询与修改</h2>
     <b-card id="query-card" no-body>
-      <b-tabs card>
+      <b-tabs card @input="clearItems">
         <b-tab title="精确查找" active>
           <b-input-group id="input-area">
             <template v-slot:prepend>
@@ -14,15 +14,15 @@
             <b-form-input v-model="tab1.input"></b-form-input>
 
             <b-input-group-append>
-              <b-button size="md" variant="primary">查找</b-button>
+              <b-button size="md" variant="primary" @click="query">查找</b-button>
             </b-input-group-append>
           </b-input-group>
-          <b-table class="result-table" show-empty :items="tab1.items" :fields="fields" sort-icon-left outlined responsive="sm">
-            <template v-slot:cell(actions)>
+          <b-table class="result-table" show-empty empty-text="没有任何记录~" :items="tab1.items" :fields="fields" sort-icon-left outlined responsive="sm">
+            <template v-slot:cell(actions)="row">
               <b-button variant="success" size="sm" class="mr-1">
                 修改
               </b-button>
-              <b-button variant="danger" size="sm">
+              <b-button variant="danger" size="sm" @click="onDeleteClicked(tab1.items, row.item.student_id)">
                 删除
               </b-button>
             </template>
@@ -32,53 +32,53 @@
         <b-tab title="多条件精确查找">
           <b-row class="input-row">
             <b-col>
-              <label for="input-stuid">学号:</label>
-              <b-form-input id="input-stuid" v-model="tab1.input"></b-form-input>
+              <label for="tab2-input-stuid">学号:</label>
+              <b-form-input id="tab2-input-stuid" v-model="tab2.opt.student_id"></b-form-input>
             </b-col>
             <b-col>
-              <label for="input-name">姓名:</label>
-              <b-form-input id="input-name" v-model="tab1.input"></b-form-input>
+              <label for="tab2-input-name">姓名:</label>
+              <b-form-input id="tab2-input-name" v-model="tab2.opt.name"></b-form-input>
             </b-col>
             <b-col>
-              <label for="input-start-year">入学年份:</label>
-              <b-form-input id="input-start-year" v-model="tab1.input"></b-form-input>
+              <label for="tab2-input-start-year">入学年份:</label>
+              <b-form-input id="tab2-input-start-year" v-model="tab2.opt.start_year"></b-form-input>
             </b-col>
             <b-col>
-              <label for="input-end-year">毕业年份:</label>
-              <b-form-input id="input-end-year" v-model="tab1.input"></b-form-input>
+              <label for="tab2-input-end-year">毕业年份:</label>
+              <b-form-input id="tab2-input-end-year" v-model="tab2.opt.end_year"></b-form-input>
             </b-col>
           </b-row>
 
           <b-row class="input-row">
             <b-col>
-              <label for="input-department">院系:</label>
-              <b-form-input id="input-department" v-model="tab1.input"></b-form-input>
+              <label for="tab2-input-department">院系:</label>
+              <b-form-input id="tab2-input-department" v-model="tab2.opt.department"></b-form-input>
             </b-col>
             <b-col>
-              <label for="input-major">专业:</label>
-              <b-form-input id="input-major" v-model="tab1.input"></b-form-input>
+              <label for="tab2-input-major">专业:</label>
+              <b-form-input id="tab2-input-major" v-model="tab2.opt.major"></b-form-input>
             </b-col>
             <b-col>
-              <label for="input-class">班级:</label>
-              <b-form-input id="input-class" v-model="tab1.input"></b-form-input>
+              <label for="tab2-input-class">班级:</label>
+              <b-form-input id="tab2-input-class" v-model="tab2.opt.class"></b-form-input>
             </b-col>
             <b-col>
-              <label for="input-company">工作单位:</label>
-              <b-form-input id="input-company" v-model="tab1.input"></b-form-input>
+              <label for="tab2-input-company">工作单位:</label>
+              <b-form-input id="tab2-input-company" v-model="tab2.opt.company"></b-form-input>
             </b-col>
           </b-row>
           <b-row align-h="between">
             <b-col cols="2"><small class="text-muted">可填写以上一个或多个条件</small></b-col>
             <b-col cols="1">
-              <b-button size="md" variant="primary">精确查找</b-button>
+              <b-button size="md" variant="primary" @click="multi_query">精确查找</b-button>
             </b-col>
           </b-row>
-          <b-table class="result-table" show-empty :items="tab1.items" :fields="fields" sort-icon-left outlined responsive="sm">
-            <template v-slot:cell(actions)>
+          <b-table class="result-table" show-empty empty-text="没有任何记录~" :items="tab2.items" :fields="fields" sort-icon-left outlined responsive="sm">
+            <template v-slot:cell(actions)="row">
               <b-button variant="success" size="sm" class="mr-1">
                 修改
               </b-button>
-              <b-button variant="danger" size="sm">
+              <b-button variant="danger" size="sm" @click="onDeleteClicked(tab2.items, row.item.student_id)">
                 删除
               </b-button>
             </template>
@@ -87,53 +87,53 @@
         <b-tab title="多条件模糊查找">
           <b-row class="input-row">
             <b-col>
-              <label for="input-stuid">学号:</label>
-              <b-form-input id="input-stuid" v-model="tab1.input"></b-form-input>
+              <label for="tab3-input-stuid">学号:</label>
+              <b-form-input id="tab3-input-stuid" v-model="tab3.opt.student_id"></b-form-input>
             </b-col>
             <b-col>
-              <label for="input-name">姓名:</label>
-              <b-form-input id="input-name" v-model="tab1.input"></b-form-input>
+              <label for="tab3-input-name">姓名:</label>
+              <b-form-input id="tab3-input-name" v-model="tab3.opt.name"></b-form-input>
             </b-col>
             <b-col>
-              <label for="input-start-year">入学年份:</label>
-              <b-form-input id="input-start-year" v-model="tab1.input"></b-form-input>
+              <label for="tab3-input-start-year">入学年份:</label>
+              <b-form-input id="tab3-input-start-year" v-model="tab3.opt.start_year"></b-form-input>
             </b-col>
             <b-col>
-              <label for="input-end-year">毕业年份:</label>
-              <b-form-input id="input-end-year" v-model="tab1.input"></b-form-input>
+              <label for="tab3-input-end-year">毕业年份:</label>
+              <b-form-input id="tab3-input-end-year" v-model="tab3.opt.end_year"></b-form-input>
             </b-col>
           </b-row>
 
           <b-row class="input-row">
             <b-col>
-              <label for="input-department">院系:</label>
-              <b-form-input id="input-department" v-model="tab1.input"></b-form-input>
+              <label for="tab3-input-department">院系:</label>
+              <b-form-input id="tab3-input-department" v-model="tab3.opt.department"></b-form-input>
             </b-col>
             <b-col>
-              <label for="input-major">专业:</label>
-              <b-form-input id="input-major" v-model="tab1.input"></b-form-input>
+              <label for="tab3-input-major">专业:</label>
+              <b-form-input id="tab3-input-major" v-model="tab3.opt.major"></b-form-input>
             </b-col>
             <b-col>
-              <label for="input-class">班级:</label>
-              <b-form-input id="input-class" v-model="tab1.input"></b-form-input>
+              <label for="tab3-input-class">班级:</label>
+              <b-form-input id="tab3-input-class" v-model="tab3.opt.class"></b-form-input>
             </b-col>
             <b-col>
-              <label for="input-company">工作单位:</label>
-              <b-form-input id="input-company" v-model="tab1.input"></b-form-input>
+              <label for="tab3-input-company">工作单位:</label>
+              <b-form-input id="tab3-input-company" v-model="tab3.opt.company"></b-form-input>
             </b-col>
           </b-row>
           <b-row align-h="between">
             <b-col cols="2"><small class="text-muted">可填写以上一个或多个条件</small></b-col>
             <b-col cols="1">
-              <b-button size="md" variant="primary">模糊查找</b-button>
+              <b-button size="md" variant="primary" @click="vague_multi_query">模糊查找</b-button>
             </b-col>
           </b-row>
-          <b-table class="result-table" show-empty :items="tab1.items" :fields="fields" sort-icon-left outlined responsive="sm">
-            <template v-slot:cell(actions)>
+          <b-table class="result-table" show-empty empty-text="没有任何记录~" :items="tab3.items" :fields="fields" sort-icon-left outlined responsive="sm">
+            <template v-slot:cell(actions)="row">
               <b-button variant="success" size="sm" class="mr-1">
                 修改
               </b-button>
-              <b-button variant="danger" size="sm">
+              <b-button variant="danger" size="sm" @click="onDeleteClicked(tab3.items, row.item.student_id)">
                 删除
               </b-button>
             </template>
@@ -146,6 +146,8 @@
 </template>
 
 <script>
+import http from '../../common/http'
+
 export default {
   data() {
     return {
@@ -174,48 +176,33 @@ export default {
         dropdownOption: 'name',
         dropdownOptionText: '姓名',
         input: '',
-        items: [
-          {
-            student_id: 201630665472,
-            name: '彭家俊',
-            department: '软件学院',
-            major: '软件工程',
-            class: '3班',
-            start_year: 2016,
-            end_year: 2020,
-            company: 'Microsoft'
-          },
-          {
-            student_id: 201630666350,
-            name: '张守一',
-            department: '软件学院',
-            major: '软件工程',
-            class: '3班',
-            start_year: 2016,
-            end_year: 2020,
-            company: 'Google'
-          },
-          {
-            student_id: 201630663977,
-            name: '陈桂博',
-            department: '软件学院',
-            major: '软件工程',
-            class: '3班',
-            start_year: 2016,
-            end_year: 2020,
-            company: 'Tencent'
-          },
-          {
-            student_id: 201630665502,
-            name: '邱鸿鹏',
-            department: '软件学院',
-            major: '软件工程',
-            class: '3班',
-            start_year: 2016,
-            end_year: 2020,
-            company: 'Amazon'
-          }
-        ]
+        items: []
+      },
+      tab2: {
+        opt: {
+          name: '',
+          student_id: '',
+          start_year: '',
+          end_year: '',
+          department: '',
+          major: '',
+          class: '',
+          company: ''
+        },
+        items: []
+      },
+      tab3: {
+        opt: {
+          name: '',
+          student_id: '',
+          start_year: '',
+          end_year: '',
+          department: '',
+          major: '',
+          class: '',
+          company: ''
+        },
+        items: []
       }
     }
   },
@@ -228,6 +215,72 @@ export default {
           break
         }
       }
+    },
+    query() {
+      var param = {}
+      param[this.tab1.dropdownOption] = this.tab1.input
+      http.post('/common/query_user', param).then(res => {
+        if (res.data.status === 0) {
+          this.tab1.items = res.data.data
+        } else {
+          this.tab1.items = []
+        }
+      })
+    },
+    multi_query() {
+      var param = {}
+      for (var i in this.tab2.opt) {
+        if (this.tab2.opt[i] != '') {
+          var value = this.tab2.opt[i]
+          if (i === 'start_year' || i === 'end_year') {
+            value = parseInt(value)
+          }
+          param[i] = value
+        }
+      }
+      http.post('/common/query_user', param).then(res => {
+        if (res.data.status === 0) {
+          this.tab2.items = res.data.data
+        } else {
+          this.tab2.items = []
+        }
+      })
+    },
+    vague_multi_query() {
+      var param = {}
+      for (var i in this.tab3.opt) {
+        if (this.tab3.opt[i] != '') {
+          var value = this.tab3.opt[i]
+          if (i === 'start_year' || i === 'end_year') {
+            value = parseInt(value)
+          }
+          param[i] = value
+        }
+      }
+      http.post('/common/vague_query_user', param).then(res => {
+        if (res.data.status === 0) {
+          this.tab3.items = res.data.data
+        } else {
+          this.tab3.items = []
+        }
+      })
+    },
+    onDeleteClicked(items, id) {
+      http.get('/admin/rm_user/' + String(id)).then(res => {
+        if (res.data.status === 0) {
+          for (var i in items) {
+            if (items[i].student_id === id) {
+              items.splice(i, 1)
+              break
+            }
+          }
+        }
+      })
+    },
+    clearItems() {
+      this.tab1.items = []
+      this.tab2.items = []
+      this.tab3.items = []
     }
   }
 }
