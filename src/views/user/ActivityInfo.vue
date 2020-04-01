@@ -10,9 +10,9 @@
         <b-card-text>地址：{{ item.address }}</b-card-text>
         <b-card-text>时间：{{ item.datetime }}</b-card-text>
         <b-card-text>已报名：{{ item.number }}</b-card-text>
-        <b-button @click="join(item.activity_id)" variant="primary">我要报名</b-button>
+        <b-button @click="join(item.activity_id)" variant="primary" :disabled="item.joined">{{ item.joined ? '你已报名' : '我要报名' }}</b-button>
       </b-card>
-      <b-card title="太极拳体验和学习" img-src="https://g-to.oss-cn-hangzhou.aliyuncs.com/srp/u%3D4274129534%2C1683238899%26fm%3D26%26gp%3D0.jpg" img-alt="Card image" img-left class="mb-3">
+      <!-- <b-card title="太极拳体验和学习" img-src="https://g-to.oss-cn-hangzhou.aliyuncs.com/srp/u%3D4274129534%2C1683238899%26fm%3D26%26gp%3D0.jpg" img-alt="Card image" img-left class="mb-3">
         <b-card-text>
           现场邀请孙式太极拳名家，孙式太极拳第三代传人，北京孙式太极拳研究会会长、北京形意拳研究会名誉会长，刘树春老师指导。
         </b-card-text>
@@ -40,14 +40,14 @@
         <b-card-text>时间：2020-4-2</b-card-text>
         <b-card-text>已报名：50</b-card-text>
         <b-button @click="dialogVisible = true" variant="primary">我要报名</b-button>
-      </b-card>
+      </b-card> -->
 
     </div>
 
     <el-dialog title="提示" :visible.sync="toastVisible" width="30%">
       <span>报名成功 </span>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="toastVisible = false">确 定</el-button>
+        <el-button type="primary" @click="onConfirmed">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -74,6 +74,10 @@ export default {
           that.toastVisible = true
         }
       })
+    },
+    onConfirmed() {
+      this.toastVisible = false
+      this.$router.go(0)
     }
   },
   mounted() {
@@ -81,7 +85,25 @@ export default {
     http.get('/users/activity/list').then(res => {
       if (res.data.status === 0) {
         that.items = res.data.data
-        console.log(that.items)
+        http
+          .get('/users/activity/my')
+          .then(myres => {
+            if (myres.data.status === 0) {
+              for (var i in that.items) {
+                for (var j in myres.data.data) {
+                  if (
+                    that.items[i].activity_id === myres.data.data[j].activity_id
+                  ) {
+                    that.items[i].joined = true
+                    break
+                  }
+                }
+              }
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
       }
     })
   }

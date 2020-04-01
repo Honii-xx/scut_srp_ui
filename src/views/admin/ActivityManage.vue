@@ -1,5 +1,24 @@
 <template>
   <div>
+    <h3 class="margin-c" id="subpage-title">活动管理</h3>
+    <p class="text-muted" v-if="items.length === 0">你还没有发布任何活动哦~</p>
+    <b-card-group deck>
+      <b-card v-for="item in items" :key="item.activity_id" :class="item.expired_date? 'text-muted': ''" style="max-width: 20rem;" :title="item.title" :img-src="baseURL + item.url" img-alt="Image" img-top>
+        <b-card-text>
+          {{ item.description }}
+        </b-card-text>
+        <template v-slot:footer>
+          <b-row aligh-h="between">
+            <b-col cols="6">
+              <small>{{ item.datetime }}</small>
+            </b-col>
+            <b-col cols="6">
+              <b-button @click="showJoinedList(item.activity_id)" size="sm" variant="primary">查看已报名名单</b-button>
+            </b-col>
+          </b-row>
+        </template>
+      </b-card>
+    </b-card-group>
     <h3 class="margin-c">活动发布</h3>
     <b-row class="margin-c" align-h="start">
       <b-col cols="2">
@@ -48,8 +67,8 @@
         <b-button size="md" variant="primary" @click="onPublishClicked">发布</b-button>
       </b-col>
     </b-row>
-    <el-dialog title="提示" :visible.sync="toastVisible" width="30%">
-      <span>{{ toastContent }}</span>
+    <el-dialog :title="toastTitle" :visible.sync="toastVisible" width="30%">
+      <div v-html="toastContent"></div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="toastVisible = false">确 定</el-button>
       </span>
@@ -64,12 +83,15 @@ export default {
   data() {
     return {
       toastContent: '',
+      toastTitle: '',
       toastVisible: false,
       title: '',
       content: '',
       datetime: '',
       address: '',
-      file: null
+      file: null,
+      items: [],
+      baseURL: http.defaults.baseURL
     }
   },
   methods: {
@@ -114,10 +136,31 @@ export default {
           })
       }
     },
-    makeToast(content) {
+    makeToast(content, title='提示') {
       this.toastVisible = true
       this.toastContent = content
+      this.toastTitle = title
+    },
+    showJoinedList(id) {
+      var that = this
+      http.get('/admin/activity_joined_list/' + String(id)).then(res => {
+        if (res.data.status === 0) {
+          var str = ''
+          for (var i in res.data.data) {
+            str += '<p>' + res.data.data[i] + '</p>'
+          }
+          that.makeToast(str, '已报名校友学号')
+        }
+      })
     }
+  },
+  mounted() {
+    var that = this
+    http.get('/users/activity/list').then(res => {
+      if (res.data.status === 0) {
+        that.items = res.data.data
+      }
+    })
   }
 }
 </script>

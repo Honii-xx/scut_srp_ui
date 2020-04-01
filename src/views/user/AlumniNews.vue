@@ -8,7 +8,7 @@
         </b-card-text>
         <b-card-text class="small text-muted">{{ item.datetime }}</b-card-text>
       </b-card>
-      <b-card title="张磊：大医精诚仁者心" img-src="https://g-to.oss-cn-hangzhou.aliyuncs.com/srp/5c5c526b-4a27-438e-96c1-9492f4f115e5.jpg" img-alt="Image" img-top>
+      <!-- <b-card title="张磊：大医精诚仁者心" img-src="https://g-to.oss-cn-hangzhou.aliyuncs.com/srp/5c5c526b-4a27-438e-96c1-9492f4f115e5.jpg" img-alt="Image" img-top>
         <b-card-text>
           大医精诚，但愿人间无疾苦。这是很多医者孜孜以求的心愿，张磊亦是如此。谈起工作感受，他说自己觉得作为一名医者，虽然辛苦，但是满足，“能够把自己所学用于救治患者，就是最大的幸福”。
         </b-card-text>
@@ -37,7 +37,7 @@
           miu~miu~miu~miu~miu~ miao
         </b-card-text>
         <b-card-text class="small text-muted">2020-2-1</b-card-text>
-      </b-card>
+      </b-card> -->
 
     </b-card-group>
   </div>
