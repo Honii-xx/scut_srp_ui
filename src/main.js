@@ -4,6 +4,7 @@ import router from './router'
 import VueCookies from 'vue-cookies'
 import './assets/css/main.css'
 import DashboardBase from './component/DashboardBase'
+import InfoEdit from './component/InfoEdit'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -21,6 +22,7 @@ Vue.use(VueCookies)
 Vue.config.productionTip = false
 
 Vue.component('dashboard-base', DashboardBase)
+Vue.component('info-edit', InfoEdit)
 
 new Vue({
   router,

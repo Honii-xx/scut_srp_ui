@@ -2,7 +2,7 @@
   <div>
     <h2 id="subpage-title">校友信息查询与修改</h2>
     <b-card id="query-card" no-body>
-      <b-tabs card @input="clearItems">
+      <b-tabs v-model="tabIndex" card @input="clearItems">
         <b-tab title="精确查找" active>
           <b-input-group id="input-area">
             <template v-slot:prepend>
@@ -19,7 +19,7 @@
           </b-input-group>
           <b-table class="result-table" show-empty empty-text="没有任何记录~" :items="tab1.items" :fields="fields" sort-icon-left outlined responsive="sm">
             <template v-slot:cell(actions)="row">
-              <b-button variant="success" size="sm" class="mr-1">
+              <b-button variant="success" size="sm" class="mr-1" @click="onModifyClick(row.item.student_id)">
                 修改
               </b-button>
               <b-button variant="danger" size="sm" @click="onDeleteClicked(tab1.items, row.item.student_id)">
@@ -75,7 +75,7 @@
           </b-row>
           <b-table class="result-table" show-empty empty-text="没有任何记录~" :items="tab2.items" :fields="fields" sort-icon-left outlined responsive="sm">
             <template v-slot:cell(actions)="row">
-              <b-button variant="success" size="sm" class="mr-1">
+              <b-button variant="success" size="sm" class="mr-1" @click="onModifyClick(row.item.student_id)">
                 修改
               </b-button>
               <b-button variant="danger" size="sm" @click="onDeleteClicked(tab2.items, row.item.student_id)">
@@ -130,7 +130,7 @@
           </b-row>
           <b-table class="result-table" show-empty empty-text="没有任何记录~" :items="tab3.items" :fields="fields" sort-icon-left outlined responsive="sm">
             <template v-slot:cell(actions)="row">
-              <b-button variant="success" size="sm" class="mr-1">
+              <b-button variant="success" size="sm" class="mr-1" @click="onModifyClick(row.item.student_id)">
                 修改
               </b-button>
               <b-button variant="danger" size="sm" @click="onDeleteClicked(tab3.items, row.item.student_id)">
@@ -142,6 +142,18 @@
         </b-tab>
       </b-tabs>
     </b-card>
+    <el-dialog title="修改校友资料" v-if="dialogFormVisible" :visible.sync="dialogFormVisible">
+      <!-- <el-form :model="form">
+        <el-form-item label="活动名称" label-width="120px">
+          <el-input autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+      </div> -->
+      <info-edit :userid="userId" @closeDialog="closeDialog"></info-edit>
+    </el-dialog>
   </div>
 </template>
 
@@ -151,6 +163,9 @@ import http from '../../common/http'
 export default {
   data() {
     return {
+      tabIndex: 0,
+      dialogFormVisible: false,
+      userId: '',
       fields: [
         { key: 'student_id', label: '学号', sortable: true },
         { key: 'name', label: '姓名', sortable: true },
@@ -207,6 +222,33 @@ export default {
     }
   },
   methods: {
+    onModifyClick(id) {
+      this.userId = id
+      this.dialogFormVisible = true
+    },
+    closeDialog(user) {
+      this.dialogFormVisible = false
+      var items = []
+      switch (this.tabIndex) {
+        case 0:
+          items = this.tab1.items
+          break
+        case 1:
+          items = this.tab2.items
+          break
+        case 2:
+          items = this.tab3.items
+          break
+      }
+      for (var i in items) {
+        if (items[i].student_id === user.student_id) {
+          for (var j in user) {
+            items[i][j] = user[j]
+          }
+          break
+        }
+      }
+    },
     onDropdownItemClick(v) {
       this.tab1.dropdownOptionText = v
       for (var i in this.tab1.optionMap) {

@@ -1,9 +1,8 @@
 <template>
-  <div class="container" style="padding-bottom: 50px">
+  <div class="container">
     <div class="alert alert-danger error-tips" v-if="show_tips" role="alert">未知错误，修改失败</div>
     <div class="alert alert-success error-tips" v-if="show_true_tips" role="alert">修改成功</div>
 
-    <h3 style="margin: 25px 3px">手动添加校友</h3>
     <div class="row">
       <div class="col-md-12 order-md-1">
         <form class="needs-validation" novalidate>
@@ -62,7 +61,7 @@
           <div class="mb-3">
             <label for="personal_id">身份证号</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="personal_id" v-model="user.personal_id" required />
+              <input type="text" class="form-control" id="personal_id" disabled v-model="user.personal_id" required />
               <div class="invalid-feedback" style="width: 100%;">请输入身份证号</div>
             </div>
           </div>
@@ -72,7 +71,7 @@
           <div class="mb-3">
             <label for="student_id">学号</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="student_id" v-model="user.student_id" required />
+              <input type="text" class="form-control" id="student_id" disabled v-model="user.student_id" required />
               <div class="invalid-feedback" style="width: 100%;">请输入学号</div>
             </div>
           </div>
@@ -166,30 +165,23 @@
             </div>
           </div>
           <hr class="mb-4" />
-          <button class="btn btn-primary btn-lg btn-block" type="button" @click.prevent="submit">添加</button>
+          <button class="btn btn-primary btn-lg btn-block" type="button" @click.prevent="submit">确认修改</button>
         </form>
       </div>
     </div>
-    <el-dialog title="提示" :visible.sync="toastVisible" width="30%">
-      <span>{{ toastContent }}</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="toastVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import '../../../node_modules/jquery/dist/jquery.slim.min.js'
-import '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import http from '../../common/http'
+import '../../node_modules/jquery/dist/jquery.slim.min.js'
+import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import http from '../common/http'
 
 export default {
+  props: ['userid'],
   data: function() {
     return {
-      toastVisible: false,
-      toastContent: '',
       years: [],
       months: [],
       show_tips: false,
@@ -198,7 +190,7 @@ export default {
         username: '',
         password: '',
         name: '',
-        gender: -1,
+        gender: 1,
         birth_year: 0,
         birth_month: 0,
         birth_day: 0,
@@ -219,10 +211,6 @@ export default {
     }
   },
   methods: {
-    makeToast(content) {
-      this.toastVisible = true
-      this.toastContent = content
-    },
     init_years: function() {
       for (var i = 1900; i <= 2030; i++) {
         this.years.push(i)
@@ -235,7 +223,7 @@ export default {
     },
     submit: function() {
       var forms = document.getElementsByClassName('needs-validation')
-      var that = this
+      var vue = this
       Array.prototype.filter.call(forms, function(form) {
         if (form.checkValidity() === false) {
           event.preventDefault()
@@ -243,19 +231,17 @@ export default {
           form.classList.add('was-validated')
         } else {
           http
-            .post('/users/register', that.user)
-            .then(res => {
-              if (res.data.status === 0) {
-                that.makeToast('添加成功')
-                for (var i in that.user) {
-                  that.user[i] = null
-                }
+            .post('/admin/edit_info_by_id/' + vue.userid, vue.user)
+            .then(function(res) {
+              if (res.data.status == 0) {
+                vue.$emit('closeDialog', vue.user)
               } else {
-                that.makeToast('用户已注册，请检查')
+                vue.show_tips = true
+                vue.backTop()
               }
             })
-            .catch(err => {
-              that.makeToast('添加失败')
+            .catch(function(err) {
+              console.log(err)
             })
         }
       })
@@ -279,12 +265,39 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop
       that.scrollTop = scrollTop
+    },
+
+    getUserInfo() {
+      var that = this
+      http.get('/admin/user_info_by_id/' + this.userid).then(res => {
+        that.user.username = res.data.data.username
+        that.user.password = res.data.data.password
+        that.user.name = res.data.data.name
+        that.user.gender = res.data.data.gender
+        that.user.birth_year = res.data.data.birth_year
+        that.user.birth_month = res.data.data.birth_month
+        that.user.birth_day = res.data.data.birth_day
+        that.user.personal_id = res.data.data.personal_id
+        that.user.student_id = res.data.data.student_id
+        that.user.start_year = res.data.data.start_year
+        that.user.end_year = res.data.data.end_year
+        that.user.department = res.data.data.department
+        that.user.major = res.data.data.major
+        that.user.class = res.data.data.class
+        that.user.phone = res.data.data.phone
+        that.user.email = res.data.data.email
+        that.user.company = res.data.data.company
+        that.user.company_address = res.data.data.company_address
+        that.user.alumni_association = res.data.data.alumni_association
+        that.user.other = res.data.data.other
+      })
     }
   },
   mounted: function() {
     this.init_years()
     this.init_months()
     window.addEventListener('scroll', this.scrollToTop)
+    this.getUserInfo()
   },
   watch: {
     $route: 'getUserInfo'

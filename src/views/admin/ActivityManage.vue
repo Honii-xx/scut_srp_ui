@@ -8,12 +8,13 @@
           {{ item.description }}
         </b-card-text>
         <template v-slot:footer>
-          <b-row aligh-h="between">
+          <b-row align-h="between">
             <b-col cols="6">
               <small>{{ item.datetime }}</small>
             </b-col>
             <b-col cols="6">
-              <b-button @click="showJoinedList(item.activity_id)" size="sm" variant="primary">查看已报名名单</b-button>
+              <b-button @click="rmActivity(item.activity_id)" size="sm" variant="danger" style="margin-right: 3px">删除</b-button>
+              <b-button @click="showJoinedList(item.activity_id)" size="sm" variant="primary">报名名单</b-button>
             </b-col>
           </b-row>
         </template>
@@ -41,7 +42,7 @@
         <label for="textarea-rows">活动时间：</label>
       </b-col>
       <b-col cols="6">
-        <b-form-input id="time-input" v-model="datetime" placeholder="在此输入活动时间"></b-form-input>
+        <b-form-input id="time-input" v-model="datetime" placeholder="在此输入活动时间，格式YYYY-MM-DD"></b-form-input>
       </b-col>
     </b-row>
     <b-row class="margin-c" align-h="start">
@@ -70,7 +71,7 @@
     <el-dialog :title="toastTitle" :visible.sync="toastVisible" width="30%">
       <div v-html="toastContent"></div>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="toastVisible = false">确 定</el-button>
+        <el-button type="primary" @click="onConfirmedClicked">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -82,6 +83,7 @@ import http from '../../common/http'
 export default {
   data() {
     return {
+      flush: false,
       toastContent: '',
       toastTitle: '',
       toastVisible: false,
@@ -95,8 +97,14 @@ export default {
     }
   },
   methods: {
+    onConfirmedClicked() {
+      this.toastVisible = false
+      if (this.flush) {
+        this.$router.go(0)
+      }
+    },
     onPublishClicked() {
-      if (this.title != '' && this.content != '' && this.file != null) {
+      if (this.title != '' && this.content != '' && this.file != null && this.address != '' && this.datetime != '') {
         var data = new FormData()
         data.append('myFile', this.file)
         var that = this
@@ -123,6 +131,7 @@ export default {
                     that.file = null
                     that.address = ''
                     that.datetime = ''
+                    that.flush = true
                     that.makeToast('发布成功')
                   }
                 })
@@ -136,7 +145,7 @@ export default {
           })
       }
     },
-    makeToast(content, title='提示') {
+    makeToast(content, title = '提示') {
       this.toastVisible = true
       this.toastContent = content
       this.toastTitle = title
@@ -144,12 +153,26 @@ export default {
     showJoinedList(id) {
       var that = this
       http.get('/admin/activity_joined_list/' + String(id)).then(res => {
+        var str = ''
+        for (var i in res.data.data) {
+          str += '<p>' + res.data.data[i] + '</p>'
+        }
+        that.makeToast(str, '已报名校友学号')
+      })
+    },
+    rmActivity(id) {
+      var that = this
+      http.get('/admin/rm_activity/' + String(id)).then(res => {
         if (res.data.status === 0) {
-          var str = ''
-          for (var i in res.data.data) {
-            str += '<p>' + res.data.data[i] + '</p>'
+          that.makeToast('删除成功，活动已取消')
+          for (var i in that.items) {
+            if (that.items[i].activity_id === id) {
+              that.items.splice(i, 1)
+              break
+            }
           }
-          that.makeToast(str, '已报名校友学号')
+        } else {
+          that.makeToast('删除失败')
         }
       })
     }

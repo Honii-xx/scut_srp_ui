@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2 id="subpage-title">校友风采</h2>
+    <p class="text-muted" v-if="items.length === 0">管理员还没有发布任何校友信息哦~</p>
     <b-card-group columns>
       <b-card v-for="item in items" :key="item.news_id" :title="item.title" :img-src="baseURL + item.url" img-alt="Image" img-top>
         <b-card-text>
