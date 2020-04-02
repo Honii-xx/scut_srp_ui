@@ -4,7 +4,7 @@
 
       <h2>活动资讯</h2>
       <p class="text-muted" v-if="items.length === 0">管理员还没有发布任何活动信息哦~</p>
-      <b-card v-for="item in items" :key="item.activity_id" :title="item.title" :img-src="baseURL + item.url" img-alt="Card image" img-left class="mb-3">
+      <b-card v-for="(item, index) in items" :key="item.activity_id" :title="item.title" :img-src="baseURL + item.url" img-alt="Card image" :img-right="index%2 != 0" :img-left="index%2 === 0" class="mb-3">
         <b-card-text>
           {{ item.description }}
         </b-card-text>
