@@ -4,7 +4,7 @@
       <img class="mb-4" src="../assets/img/login_logo.jpg" alt width="125" height="125" />
       <h1 class="h3 mb-3 font-weight-normal">SCUTer, 欢迎回来</h1>
       <div v-if="show_alert" class="alert alert-danger" role="alert">
-        用户名或密码错误，请检查
+        学号或密码错误，请检查
       </div>
       <div v-if="show_unknown_error" class="alert alert-danger" role="alert">
         未知错误
@@ -13,7 +13,7 @@
       <input
         id="username"
         class="form-control"
-        placeholder="账号"
+        placeholder="请输入学号"
         v-model="username"
         required
         autofocus
@@ -23,7 +23,7 @@
         type="password"
         id="password"
         class="form-control"
-        placeholder="密码"
+        placeholder="请输入密码"
         v-model="password"
         required
       />
